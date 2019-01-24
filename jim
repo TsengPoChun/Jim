@@ -1,0 +1,65 @@
+var sidebarTriggered = false;
+
+function triggerSidebar() {
+    var left_node = document.getElementById('sidebar').style;
+    var right_node = document.getElementById('content-container').style;
+
+    if (!sidebarTriggered) {
+        sidebarTriggered = true;
+
+        var left_node_position = 100;
+        var setIntSlow;
+
+        function triggerFast() {
+            left_node_position -= 5;
+            left_node.right = left_node_position + '%';
+            right_node.left = 100 - left_node_position + '%';
+
+            if (left_node.right == '15%') {
+                clearInterval(setIntFast);
+                setIntSlow = setInterval(triggerSlow, 20);
+            }
+        }
+
+        function triggerSlow() {
+            left_node_position -= 0.5;
+            left_node.right = left_node_position + '%';
+            right_node.left = 100 - left_node_position + '%';
+
+            if (left_node.right == '10%') {
+                clearInterval(setIntSlow);
+            }
+        }
+
+        var setIntFast = setInterval(triggerFast, 10);
+        
+    } else {
+        sidebarTriggered = false;
+
+        var left_node_position = 10;
+        var setIntSlow;
+
+        function triggerFast() {
+            left_node_position += 5;
+            left_node.right = left_node_position + '%';
+            right_node.left = 100 - left_node_position + '%';
+
+            if (left_node.right == '95%') {
+                clearInterval(setIntFast);
+                setIntSlow = setInterval(triggerSlow, 20);
+            }
+        }
+
+        function triggerSlow() {
+            left_node_position += 0.5;
+            left_node.right = left_node_position + '%';
+            right_node.left = 100 - left_node_position + '%';
+
+            if (left_node.right == '100%') {
+                clearInterval(setIntSlow);
+            }
+        }
+
+        var setIntFast = setInterval(triggerFast, 10);
+    }
+}
